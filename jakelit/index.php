@@ -1,69 +1,336 @@
-
-<!DOCTYPE html>
-<html lang="en" class="h-100">
+<!doctype html>
+<html class="no-js" lang="">
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Jakel - IT Department</title>
-    <link rel="icon" type="image/png" sizes="5x5" href="../system/images/jakelLogo.png">
-    <link href="./loginDetails/css/style.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <?php 
+        session_start();
+    
+        if(!isset($_SESSION['unlock_key'])){
+            header("Location: ./");
+        }
+            
+		$directoryHeadMenu = './';
+        $directoryLogoHeadMenu = '../';
+        include('../dbconn.php');
+    
+        $sql = "SELECT * FROM outlet WHERE outletSecretKey = '".$_GET['secretkey']."' ";
+        $query = mysqli_query($dbconn, $sql);
+        $data = mysqli_fetch_assoc($query);
+    
+        // Define your PHP variables
+        $backgroundColor = $data['outletCodeColor'];
+        $outletLogo = $data['outletCaseLogo'];
+        $outletName = substr($data['outletName'], 1);
+        
+        include('./headMenu.php');
+	?>
 </head>
 
-<body class="h-100">
-    <div id="overlay"></div>
-    <div class="authincation h-100">
-        <div class="container-fluid h-100">
-            <div class="row justify-content-center h-100 align-items-center">
-                <div class="col-lg-4 col-md-5 col-sm-8 col-12 ">
-                    <div class="authincation-content" style="z-index:99;position:relative;">
-                        <div class="row no-gutters">
-                            <div class="col-xl-12">
-                                <div class="auth-form">
-                                    <center><img style="width:70%" src="./loginDetails/images/jakelLogo.png" ></center><br>
-                                    <h4 class="text-center mb-4">IT Management System</h4>
-                                    
-                                    <form class="form-valide">
-                                        <div class="form-group row">
-                                            <label class="col-lg-12 col-form-label" for="val-email">Email
-                                                <span class="text-danger">*</span>
-                                            </label>
-                                            <div class="col-lg-12">
-                                                <input type="email" class="form-control" id="val-email" name="val-email" placeholder="Enter the email..">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-12 col-form-label" for="val-password">Password
-                                                <span class="text-danger">*</span>
-                                            </label>
-                                            <div class="col-lg-12">
-                                                <input type="password" class="form-control" id="val-password" name="val-password" placeholder="Enter the password..">
-                                            </div>
-                                        </div>
-                                        <div class="alert alert-danger" style="display: none;">
-                                            <div class="alert-email"></div>
-                                            <div class="alert-password"></div>
-                                        </div>
-                                        <div class="form-row d-flex justify-content-between mt-4 mb-2">
-                                            <div class="form-group">
-                                                
-                                            </div>
-                                            <div class="form-group">
-                                                <a href="forgotpassword.php">Forgot Password?</a>
-                                            </div>
-                                        </div>
-                                        <div class="text-center">
-                                            <button type="button" class="btn btn-primary btn-block" id="btnLogin">Log In</button>
-                                        </div>
-                                    </form>
-                                    <div class="new-account mt-3">
-                                        <p>Don't have an account? <font class="text-primary" >Contact Admin</font></p>
+<body>
+
+    <?php 
+	
+		$directoryMainMenu = './';
+		$logout ='./../';
+		include('./mainMenu.php');
+
+	?>
+	
+	<!-- Breadcomb area Start-->
+	<div class="breadcomb-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="breadcomb-list">
+						<div class="row">
+							<?php
+								include('./headSession.php');
+							?>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Breadcomb area End-->
+    <!-- Start Status area -->
+    <div class="notika-status-area" style="margin-bottom: 30px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    <div class="wb-traffic-inner notika-shadow">
+                        <div class="website-traffic-ctn">
+                            <h2><span class="counter">50,000</span></h2>
+                            <p>Total Equipment</p>
+                        </div>
+                        <div class="sparkline-bar-stats1">9,4,8,6,5,6,4,8,3,5,9,5</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30">
+                        <div class="website-traffic-ctn">
+                            <h2><span class="counter">90,000</span>k</h2>
+                            <p>Pending Approval</p>
+                        </div>
+                        <div class="sparkline-bar-stats2">1,4,8,3,5,6,4,8,3,3,9,5</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30 dk-res-mg-t-30">
+                        <div class="website-traffic-ctn">
+                            <h2>$<span class="counter">40,000</span></h2>
+                            <p>In Use Equipment</p>
+                        </div>
+                        <div class="sparkline-bar-stats3">4,2,8,2,5,6,3,8,3,5,9,5</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30 dk-res-mg-t-30">
+                        <div class="website-traffic-ctn">
+                            <h2><span class="counter">1,000</span></h2>
+                            <p>Returned Equipment</p>
+                        </div>
+                        <div class="sparkline-bar-stats4">2,4,8,4,5,7,4,7,3,5,7,5</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Status area-->
+    <!-- Start Email Statistic area-->
+    <div class="notika-email-post-area" >
+        <div class="container">
+            <div class="row">
+                <!-- Data Table area Start-->
+                <div class="data-table-area" style="margin-bottom: 30px;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div class="data-table-list">
+                                    <div class="basic-tb-hd">
+                                        <h2>Available Equipment</h2>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table id="data-table-basic-1" class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Office</th>
+                                                    <th>Age</th>
+                                                    <th>Start date</th>
+                                                    <th>Salary</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Tiger Nixon</td>
+                                                    <td>System Architect</td>
+                                                    <td>Edinburgh</td>
+                                                    <td>61</td>
+                                                    <td>2011/04/25</td>
+                                                    <td>$320,800</td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Office</th>
+                                                    <th>Age</th>
+                                                    <th>Start date</th>
+                                                    <th>Salary</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div class="data-table-list">
+                                    <div class="basic-tb-hd">
+                                        <h2>Pending Approval</h2>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table id="data-table-basic-2" class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Office</th>
+                                                    <th>Age</th>
+                                                    <th>Start date</th>
+                                                    <th>Salary</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Tiger Nixon</td>
+                                                    <td>System Architect</td>
+                                                    <td>Edinburgh</td>
+                                                    <td>61</td>
+                                                    <td>2011/04/25</td>
+                                                    <td>$320,800</td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Office</th>
+                                                    <th>Age</th>
+                                                    <th>Start date</th>
+                                                    <th>Salary</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Data Table area End-->
+                <!-- Start Email Statistic area-->
+                <div class="notika-email-post-area">
+                    <div class="container">
+                        <div class="row">
+                            <!-- Data Table area Start-->
+                            <div class="data-table-area">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <div class="data-table-list">
+                                                <div class="basic-tb-hd">
+                                                    <h2>Available Equipment</h2>
+                                                </div>
+                                                <div class="table-responsive">
+                                                    <table id="data-table-basic-1" class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Position</th>
+                                                                <th>Office</th>
+                                                                <th>Age</th>
+                                                                <th>Start date</th>
+                                                                <th>Salary</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Tiger Nixon</td>
+                                                                <td>System Architect</td>
+                                                                <td>Edinburgh</td>
+                                                                <td>61</td>
+                                                                <td>2011/04/25</td>
+                                                                <td>$320,800</td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Position</th>
+                                                                <th>Office</th>
+                                                                <th>Age</th>
+                                                                <th>Start date</th>
+                                                                <th>Salary</th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <div class="data-table-list">
+                                                <div class="basic-tb-hd">
+                                                    <h2>Pending Approval</h2>
+                                                </div>
+                                                <div class="table-responsive">
+                                                    <table id="data-table-basic-2" class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Position</th>
+                                                                <th>Office</th>
+                                                                <th>Age</th>
+                                                                <th>Start date</th>
+                                                                <th>Salary</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Tiger Nixon</td>
+                                                                <td>System Architect</td>
+                                                                <td>Edinburgh</td>
+                                                                <td>61</td>
+                                                                <td>2011/04/25</td>
+                                                                <td>$320,800</td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Position</th>
+                                                                <th>Office</th>
+                                                                <th>Age</th>
+                                                                <th>Start date</th>
+                                                                <th>Salary</th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Data Table area End-->
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    <div class="ongoing-task-inner notika-shadow mg-t-30">
+                        <div class="realtime-ctn">
+                            <div class="realtime-title ongoing-hd-wd">
+                                <h2>Ongoing Tasks</h2>
+                                <p>Magna cursus malesuada lacinia</p>
+                            </div>
+                        </div>
+                        <div class="skill-content-3 ongoing-tsk">
+                            <div class="skill">
+                                <div class="progress">
+                                    <div class="lead-content">
+                                        <p>HTML5 Validation Report</p>
+                                    </div>
+                                    <div class="progress-bar wow fadeInLeft" data-progress="95%" style="width: 95%;" data-wow-duration="1.5s" data-wow-delay="1.2s"> <span>95%</span>
+                                    </div>
+                                </div>
+                                <div class="progress">
+                                    <div class="lead-content">
+                                        <p>Google Chrome Extension</p>
+                                    </div>
+                                    <div class="progress-bar wow fadeInLeft" data-progress="85%" style="width: 85%;" data-wow-duration="1.5s" data-wow-delay="1.2s"><span>85%</span> </div>
+                                </div>
+                                <div class="progress">
+                                    <div class="lead-content">
+                                        <p>Social Internet Projects</p>
+                                    </div>
+                                    <div class="progress-bar wow fadeInLeft" data-progress="70%" style="width: 70%;" data-wow-duration="1.5s" data-wow-delay="1.2s"><span>70%</span> </div>
+                                </div>
+                                <div class="progress">
+                                    <div class="lead-content">
+                                        <p>Bootstrap Admin</p>
+                                    </div>
+                                    <div class="progress-bar wow fadeInLeft" data-progress="60%" style="width: 60%;" data-wow-duration="1.5s" data-wow-delay="1.2s"><span>60%</span> </div>
+                                </div>
+                                <div class="progress progress-bt">
+                                    <div class="lead-content">
+                                        <p>Youtube App</p>
+                                    </div>
+                                    <div class="progress-bar wow fadeInLeft" data-progress="50%" style="width: 50%;" data-wow-duration="1.5s" data-wow-delay="1.2s"><span>50%</span> </div>
+                                </div>
+                            </div>
+                            <div class="view-all-onging">
+                                <a href="#">View All Tasks</a>
                             </div>
                         </div>
                     </div>
@@ -71,9 +338,24 @@
             </div>
         </div>
     </div>
-
-	<script src="./process/jquery.js"></script>
-	
+    <!-- End Email Statistic area-->
+    
+    
+    
+    <?php 
+		include('./footer.php');
+		
+		$directoryFootMenu = './';
+		include('./footMenu.php');
+	?>
+    
+    <script>
+        $(document).ready(function() {
+            $('#data-table-basic-1').DataTable();
+            $('#data-table-basic-2').DataTable();
+        });
+    </script>
+    
 </body>
 
 </html>
